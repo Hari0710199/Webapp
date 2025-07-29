@@ -3,6 +3,10 @@ package com.WebApplication.webApplication.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,9 +19,22 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 
-	@RequestMapping("/")
+	@RequestMapping("/products")
 	public List<Product> getProcucts() {
 		System.out.println("Inside Controller");
 		return productService.getListOfProducts();
+	}
+
+	@GetMapping("/products/{id}")
+	// To match path Id
+	public Product getProduCtById(@PathVariable int id) {
+		return productService.getProduCtById(id);
+	}
+
+	@PostMapping("/products/add")
+	// We need use requestbody if we use to pass something from headers
+	public void addProduct(@RequestBody Product product) {
+		System.out.println(product);
+		productService.addProduct(product);
 	}
 }
