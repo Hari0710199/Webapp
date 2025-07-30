@@ -1,6 +1,7 @@
 package com.WebApplication.webApplication.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,14 +29,13 @@ public class ProductController {
 
 	@GetMapping("/products/{id}")
 	// To match path Id
-	public Product getProduCtById(@PathVariable int id) {
-		return productService.getProduCtById(id);
+	public Optional<Product> getProduCtById(@PathVariable int id) {
+		return productService.getProductById(id);
 	}
 
 	@PostMapping("/products/add")
 	// We need use requestbody if we use to pass something from headers
 	public void addProduct(@RequestBody Product product) {
-		System.out.println(product);
 		productService.addProduct(product);
 	}
 

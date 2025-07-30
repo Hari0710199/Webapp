@@ -1,21 +1,20 @@
 package com.WebApplication.webApplication.model;
 
-import java.time.LocalDate;
-import java.util.Date;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
+@Entity
+@Table(name ="Product")
 public class Product {
 
+	@Id
 	private int id;
 	private String name;
 	private String emailId;
-	private LocalDate date;
+	private String date;
 
-	public Product(int id, String name, String emailId, LocalDate date) {
+	public Product(int id, String name, String emailId, String date) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -51,11 +50,11 @@ public class Product {
 		this.emailId = emailId;
 	}
 
-	public LocalDate getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
