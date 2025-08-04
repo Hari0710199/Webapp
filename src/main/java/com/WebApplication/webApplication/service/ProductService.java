@@ -1,8 +1,6 @@
 package com.WebApplication.webApplication.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +16,25 @@ public class ProductService {
 	@Autowired
 	ProductRepo productRepo;
 
+	public String login(String email, String password) {
+		Product product = productRepo.findByEmailId(email).orElseThrow(() -> new RuntimeException("User not found"));
+
+		if (password.matches(product.getPassword())) {
+			return "Login successful!";
+		} else {
+			throw new RuntimeException("Invalid credentials");
+		}
+	}
+
+	public String register(Product product) {
+		if (productRepo.findByEmailId(product.getEmailId()).isPresent()) {
+			throw new RuntimeException("Email already registered");
+		}
+		product.setPassword(product.getPassword());
+		product.setDate(LocalDate.now().toString());
+		productRepo.save(product);
+		return "User registered successfully!";
+	}
 
 	public List<Product> getListOfProducts() {
 		return productRepo.findAll();
